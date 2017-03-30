@@ -12,18 +12,25 @@
 #include <stdlib.h>
 #include <string.h>
 
-FILE *fp;
+void generate_data_set(const char* file, long num_point);
+void pars_from_file(FILE* fp, char delimate, char* p_buff, char* buff);
+void write_into_file(const char* file, char* buff);
+void write_into_file_double_pair(FILE* fp,double x, double y);
+void write_into_file_string(FILE* fp, char* str);
+void write_into_file_long(FILE* fp, long num_point);
+void write_into_file_decimal(FILE* fp, double num_point);
+void write_into_file_format(const char* file,const char* format, ...);
 
-void read_data_set(const char* file, point* s_x, point pts) {
 
-	fp = fopen(file, "r");
+void load_data_set(const char* file, point* s_x, point pts) {
+
+	FILE *fp = fopen(file, "r");
 	if (fp == NULL) {
 		printf("Error opening file!\n");
 		exit(8);
 	}
 
 	char buff[256];
-	char* p_buff;
 	long num_point;
 	char c;
 
@@ -34,7 +41,7 @@ void read_data_set(const char* file, point* s_x, point pts) {
 		char* p_buff = buff;
 
 		//Read number of points and initialise num_point
-		pars_from_file(']', p_buff, buff, fp);
+		pars_from_file(fp,']', p_buff, buff);
 		num_point = strtol(buff, &p_buff, 10);
 
 		for (long i = 0; i < num_point; i++) {
@@ -42,11 +49,11 @@ void read_data_set(const char* file, point* s_x, point pts) {
 			s_x[i] = pts + i;
 
 			//Read X
-			pars_from_file(',', p_buff, buff, fp);
+			pars_from_file(fp,',', p_buff, buff);
 			pts[i].x = strtod(buff, &p_buff);
 
 			//Read Y
-			pars_from_file('\n', p_buff, buff, fp);
+			pars_from_file(fp,'\n', p_buff, buff);
 			pts[i].y = strtod(buff, &p_buff);
 
 		}
@@ -55,25 +62,41 @@ void read_data_set(const char* file, point* s_x, point pts) {
 	fclose(fp);
 }
 
-inline void pars_from_file(char delimate, char* p_buff, char* buff, FILE* f) {
-	char c = fgetc(f);
+void write_into_file_format(const char* file,const char* format, ...)
+{
+	FILE* fp = fopen(file, "w");
+
+		if (fp == NULL) {
+			printf("Error opening file!\n");
+			exit(1);
+		}
+
+
+	va_list args;
+	va_start(args,format);
+	vfprintf(fp,format,args);
+	va_end(args);
+}
+
+void pars_from_file(FILE* fp, char delimate, char* p_buff, char* buff) {
+	char c = fgetc(fp);
 	p_buff = buff;
 	while (c != delimate && c != EOF) {
 		*p_buff = c;
 		p_buff++;
-		c = fgetc(f);
+		c = fgetc(fp);
 	}
 }
 
-void write_data_set(const char* file, long num_point) {
-	fp = fopen(file, "w");
+void generate_data_set(const char* file, long num_point) {
+	FILE* fp = fopen(file, "w");
 
 	if (fp == NULL) {
 		printf("Error opening file!\n");
 		exit(1);
 	}
 
-	write_in_file_header(num_point);
+	write_into_file_long(fp,num_point);
 
 	typedef struct {
 		double x, y;
@@ -83,17 +106,35 @@ void write_data_set(const char* file, long num_point) {
 	for (long i = 0; i < num_point; i++) {
 		pts[i].x = 100 * (double) rand() / RAND_MAX;
 		pts[i].y = 100 * (double) rand() / RAND_MAX;
-		write_in_file_points(file, pts[i].x, pts[i].y);
+		write_into_file_double_pair(fp, pts[i].x, pts[i].y);
 	}
 	fclose(fp);
 }
 
-inline write_in_file_points(double x, double y) {
+void write_into_file(const char* file, char* buff) {
+	FILE* fp = fopen(file, "w");
+
+	if (fp == NULL) {
+		printf("Error opening file!\n");
+		exit(1);
+	}
+	write_into_file_string(fp,buff);
+	fclose(fp);
+}
+
+void write_into_file_double_pair(FILE* fp,double x, double y) {
 
 	fprintf(fp, "%f,%f\n", x, y); //[x,y]
 }
 
-inline write_in_file_header(long num_point) {
+void write_into_file_string(FILE* fp, char* str) {
+	fprintf(fp, "[%s]\n", str);
+}
+
+void write_into_file_long(FILE* fp, long num_point) {
 	fprintf(fp, "[%ld]\n", num_point);
 }
 
+void write_into_file_decimal(FILE* fp, double num_point) {
+	fprintf(fp, "[%g]\n", num_point);
+}

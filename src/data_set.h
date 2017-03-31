@@ -76,6 +76,7 @@ void write_into_file_format(const char* file,const char* format, ...)
 	va_start(args,format);
 	vfprintf(fp,format,args);
 	va_end(args);
+	fclose(fp);
 }
 
 void pars_from_file(FILE* fp, char delimate, char* p_buff, char* buff) {

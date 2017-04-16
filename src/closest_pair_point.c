@@ -11,9 +11,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
-#include "brute_force.h"
-#include "data_set.h"
-#include "timer.h"
+#include "../src/sequencial/brute_force.h"
+#include "../src/tools/data_set.h"
+#include "../src/tools/timer.h"
 
 #define RESULT_FILE_NAME "Result.dat"
 #define DATASET_FILE_NAME "Orginal.dat"

@@ -2,7 +2,7 @@
 #include "../../src/tools/closest_pair_tools.h"
 
 
-double calc_distance(point_t* pts, int max_n, point_t *a, point_t *b) {
+double calc_distance(point* pts, int max_n, point *a, point *b) {
 	int i, j;
 	double d, min_d = MAXDOUBLE;
 
@@ -19,16 +19,16 @@ double calc_distance(point_t* pts, int max_n, point_t *a, point_t *b) {
 	return min_d;
 }
 
-double brute_force(point_t* sx, int nx, point_t* sy, int ny, point_t *a, point_t *b) {
+double brute_force(point* sx, int nx, point* sy, int ny, point *a, point *b) {
 	int left, right, i;
 	double d, min_d, x0, x1, mid, x;
-	point_t a1, b1;
-	point_t *s_yy;
+	point a1, b1;
+	point *s_yy;
 
 	if (nx <= 8)
 		return calc_distance(sx, nx, a, b);
 
-	s_yy = malloc(sizeof(point_t) * ny);
+	s_yy = malloc(sizeof(point) * ny);
 	mid = sx[nx / 2].x;
 
 	/* adding points to the y-sorted list; if a point's x is less than mid,

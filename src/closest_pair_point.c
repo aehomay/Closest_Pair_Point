@@ -26,7 +26,7 @@
 #define SUCC_MSG_03 "\nData-set is generated successfully."
 
 void execute_brute_force();
-double brute_force(point_t* sx, int nx, point_t* sy, int ny, point_t *a, point_t *b);
+double brute_force(point* sx, int nx, point* sy, int ny, point *a, point *b);
 int generate_orginal_data(const char* file);
 void print_results(const char* file);
 
@@ -85,18 +85,18 @@ void execute_brute_force() {
 	if (length == 0)
 		return;
 
-	point_t a, b;
+	point a, b;
 
 	start_watch(); //Start timer
 
-	point_t* s_x = malloc(sizeof(point_t) * length);
-	point_t* s_y = malloc(sizeof(point_t) * length);
+	point* s_x = malloc(sizeof(point) * length);
+	point* s_y = malloc(sizeof(point) * length);
 
 	load_data_set(DATASET_FILE_NAME, s_x);
 
-	memcpy(s_y, s_x, sizeof(point_t) * length);
-	qsort(s_x, length, sizeof(point_t), cmp_x);
-	qsort(s_y, length, sizeof(point_t), cmp_y);
+	memcpy(s_y, s_x, sizeof(point) * length);
+	qsort(s_x, length, sizeof(point), cmp_x);
+	qsort(s_y, length, sizeof(point), cmp_y);
 
 	double min_pair = brute_force(s_x, length, s_y, length, &a, &b);
 	min_pair = sqrt(min_pair);

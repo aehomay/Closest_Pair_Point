@@ -6,28 +6,29 @@
 #include <values.h>
 #include <math.h>
 #include <string.h>
-#include "mpi/mpi.h"
+
+
+
 
 typedef struct {
 	double x, y;
-} point_t;
+} point;
 
-static double dist(point_t* a, point_t* b) {
+static double dist(point* a, point* b) {
 	double dx = a->x - b->x, dy = a->y - b->y;
 	return dx * dx + dy * dy;
 }
-
 
 static int cmp_dbl(double a, double b) {
 	return a < b ? -1 : a > b ? 1 : 0;
 }
 
 static int cmp_x(const void *a, const void *b) {
-	return cmp_dbl(((const point_t*) a)->x, ((const point_t*) b)->x);
+	return cmp_dbl(((const point*) a)->x, ((const point*) b)->x);
 }
 
 static int cmp_y(const void *a, const void *b) {
-	return cmp_dbl(((const point_t*) a)->y, ((const point_t*) b)->y);
+	return cmp_dbl(((const point*) a)->y, ((const point*) b)->y);
 }
 
 #endif // end of CLOSEST_PAIR_TOOLS_H_

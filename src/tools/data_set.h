@@ -11,7 +11,7 @@
 
 #include "../../src/tools/closest_pair_tools.h"
 
-void load_data_set(const char* file, point_t* s_x);
+void load_data_set(const char* file, point* s_x);
 long read_data_set_header(const char* file);
 void pars_by_delimiters(FILE* fp, char* ptr_delimiter, char* p_buff, char* buff,int line);
 void pars_by_delimiter(FILE* fp, char delimate, char* p_buff, char* buff);
@@ -24,7 +24,7 @@ void write_into_file_string(FILE* fp, char* str);
 void write_into_file_long(FILE* fp, long num_point);
 void write_into_file_decimal(FILE* fp, double num_point);
 
-void load_data_set(const char* file, point_t* s_x) {
+void load_data_set(const char* file, point* s_x) {
 
 	FILE *fp = fopen(file, "r");
 	if (fp == NULL) {

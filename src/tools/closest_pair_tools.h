@@ -1,6 +1,13 @@
 #ifndef CLOSEST_PAIR_TOOLS_H_
 #define CLOSEST_PAIR_TOOLS_H_
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <values.h>
+#include <math.h>
+#include <string.h>
+#include "mpi/mpi.h"
+
 typedef struct {
 	double x, y;
 } point_t, *point;

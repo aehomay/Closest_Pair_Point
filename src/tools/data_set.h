@@ -8,9 +8,7 @@
  ============================================================================
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
 #include "../../src/tools/closest_pair_tools.h"
 
 void generate_data_set(const char* file, long num_point);

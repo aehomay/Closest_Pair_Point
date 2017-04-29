@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <values.h>
-#include <math.h>
-#include <string.h>
+
 #include "../../src/tools/closest_pair_tools.h"
 
 

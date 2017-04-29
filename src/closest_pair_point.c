@@ -8,8 +8,6 @@
  ============================================================================
  */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <stdarg.h>
 #include "../src/tools/data_set.h"
 #include "../src/tools/timer.h"

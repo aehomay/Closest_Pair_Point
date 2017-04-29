@@ -32,7 +32,7 @@ double brute_force(point* sx, int nx, point* sy, int ny, point *a, point *b) {
 	mid = sx[nx / 2].x;
 
 	/* adding points to the y-sorted list; if a point's x is less than mid,
-	 add to the begining; if more, add to the end backwards, hence the
+	 add to the beginning; if more, add to the end backwards, hence the
 	 need to reverse it */
 	left = -1;
 	right = ny;

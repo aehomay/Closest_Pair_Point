@@ -3,7 +3,7 @@
 
 
 #include "mpi/mpi.h"
-
+#include "../../src/tools/closest_pair_tools.h"
 //Types
 typedef struct { point a; point b; double d; } distance;
 extern MPI_Datatype PointType;
@@ -24,4 +24,4 @@ void trivalSearch(long np, point* points, distance* solution);
 double tack(void);
 
 
-#endif // end of CLOSEST_PAIR_TOOLS_H_
+#endif // end of CLOSEST_PAIR_MPI_TOOLS_H_

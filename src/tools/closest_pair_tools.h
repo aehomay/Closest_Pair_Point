@@ -8,8 +8,6 @@
 #include <string.h>
 
 
-
-
 typedef struct {
 	double x, y;
 } point;

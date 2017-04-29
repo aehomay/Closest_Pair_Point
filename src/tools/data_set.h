@@ -36,7 +36,7 @@ void load_data_set(const char* file, point* s_x) {
 	long num_point;
 	char c;
 
-	// Read the file till the EOF (end of file) by starting from [
+	// Read the file till the EOF (end of file) by starting from
 	while ((c = fgetc(fp)) != EOF) {
 
 		//Reset pointer to buffer to the first location of buffer in each iteration

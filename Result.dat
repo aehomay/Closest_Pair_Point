@@ -1,4 +1,4 @@
 Number of points: 10000
 Minimum distance is: 0.00705575
 Closest pair set is: {a(23.882547,44.162230), b(23.885405,44.168681)}
-Execution time: 22 ms
+Execution time: 28 ms

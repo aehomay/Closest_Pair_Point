@@ -11,18 +11,20 @@
 
 #include "../../src/tools/closest_pair_tools.h"
 
-void generate_data_set(const char* file, long num_point);
+void load_data_set(const char* file, point_t* s_x);
+long read_data_set_header(const char* file);
+void pars_by_delimiters(FILE* fp, char* ptr_delimiter, char* p_buff, char* buff,int line);
 void pars_by_delimiter(FILE* fp, char delimate, char* p_buff, char* buff);
+void generate_data_set(const char* file, long num_point);
+
+void write_into_file_format(const char* file, const char* format, ...);
 void write_into_file(const char* file, char* buff);
 void write_into_file_double_pair(FILE* fp, double x, double y);
 void write_into_file_string(FILE* fp, char* str);
 void write_into_file_long(FILE* fp, long num_point);
 void write_into_file_decimal(FILE* fp, double num_point);
-void write_into_file_format(const char* file, const char* format, ...);
-long read_data_set_header(const char* file);
-void pars_by_delimiters(FILE* fp, char* ptr_delimiter, char* p_buff, char* buff,int line);
 
-void load_data_set(const char* file, point* s_x, point pts) {
+void load_data_set(const char* file, point_t* s_x) {
 
 	FILE *fp = fopen(file, "r");
 	if (fp == NULL) {
@@ -46,15 +48,13 @@ void load_data_set(const char* file, point* s_x, point pts) {
 
 		for (long i = 0; i < num_point; i++) {
 
-			s_x[i] = pts + i;
-
 			//Read X
 			pars_by_delimiter(fp, ',', p_buff, buff);
-			pts[i].x = strtod(buff, &p_buff);
+			s_x[i].x = strtod(buff, &p_buff);
 
 			//Read Y
 			pars_by_delimiter(fp, '\n', p_buff, buff);
-			pts[i].y = strtod(buff, &p_buff);
+			s_x[i].y = strtod(buff, &p_buff);
 
 		}
 	}
@@ -82,21 +82,6 @@ long read_data_set_header(const char* file) {
 
 	fclose(fp);
 	return num_point;
-}
-
-void write_into_file_format(const char* file, const char* format, ...) {
-	FILE* fp = fopen(file, "w");
-
-	if (fp == NULL) {
-		printf("Error opening file!\n");
-		EXIT_FAILURE;
-	}
-
-	va_list args;
-	va_start(args, format);
-	vfprintf(fp, format, args);
-	va_end(args);
-	fclose(fp);
 }
 
 void pars_by_delimiter(FILE* fp, char delimate, char* p_buff, char* buff) {
@@ -162,6 +147,21 @@ void generate_data_set(const char* file, long num_point) {
 		pts[i].y = 100 * (double) rand() / RAND_MAX;
 		write_into_file_double_pair(fp, pts[i].x, pts[i].y);
 	}
+	fclose(fp);
+}
+
+void write_into_file_format(const char* file, const char* format, ...) {
+	FILE* fp = fopen(file, "w");
+
+	if (fp == NULL) {
+		printf("Error opening file!\n");
+		EXIT_FAILURE;
+	}
+
+	va_list args;
+	va_start(args, format);
+	vfprintf(fp, format, args);
+	va_end(args);
 	fclose(fp);
 }
 

@@ -3,9 +3,10 @@
 #include <values.h>
 #include <math.h>
 #include <string.h>
-#include "brute_force.h"
+#include "../../src/tools/closest_pair_tools.h"
 
-double brute_force(point* pts, int max_n, point *a, point *b) {
+
+double calc_distance(point* pts, int max_n, point *a, point *b) {
 	int i, j;
 	double d, min_d = MAXDOUBLE;
 
@@ -22,14 +23,14 @@ double brute_force(point* pts, int max_n, point *a, point *b) {
 	return min_d;
 }
 
-double closest(point* sx, int nx, point* sy, int ny, point *a, point *b) {
+double brute_force(point* sx, int nx, point* sy, int ny, point *a, point *b) {
 	int left, right, i;
 	double d, min_d, x0, x1, mid, x;
 	point a1, b1;
 	point *s_yy;
 
 	if (nx <= 8)
-		return brute_force(sx, nx, a, b);
+		return calc_distance(sx, nx, a, b);
 
 	s_yy = malloc(sizeof(point) * ny);
 	mid = sx[nx / 2]->x;
@@ -52,8 +53,8 @@ double closest(point* sx, int nx, point* sy, int ny, point *a, point *b) {
 		s_yy[i] = a1;
 	}
 
-	min_d = closest(sx, nx / 2, s_yy, left + 1, a, b);
-	d = closest(sx + nx / 2, nx - nx / 2, s_yy + left + 1, ny - left - 1, &a1,
+	min_d = brute_force(sx, nx / 2, s_yy, left + 1, a, b);
+	d = brute_force(sx + nx / 2, nx - nx / 2, s_yy + left + 1, ny - left - 1, &a1,
 			&b1);
 
 	if (d < min_d) {
@@ -101,3 +102,6 @@ double closest(point* sx, int nx, point* sy, int ny, point *a, point *b) {
 	free(s_yy);
 	return min_d;
 }
+
+
+

@@ -1,6 +1,5 @@
-#ifndef BRUTE_FORCE_H_
-#define BRUTE_FORCE_H_
-#endif
+#ifndef CLOSEST_PAIR_TOOLS_H_
+#define CLOSEST_PAIR_TOOLS_H_
 
 typedef struct {
 	double x, y;
@@ -23,7 +22,4 @@ static int cmp_y(const void *a, const void *b) {
 	return cmp_dbl((*(const point*) a)->y, (*(const point*) b)->y);
 }
 
-double brute_force(point* pts, int max_n, point *a, point *b);
-
-double closest(point* sx, int nx, point* sy, int ny, point *a, point *b);
-
+#endif // end of CLOSEST_PAIR_TOOLS_H_

@@ -11,9 +11,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
-#include "../src/sequencial/brute_force.h"
 #include "../src/tools/data_set.h"
 #include "../src/tools/timer.h"
+#include "../src/tools/closest_pair_tools.h"
 
 #define RESULT_FILE_NAME "Result.dat"
 #define DATASET_FILE_NAME "Orginal.dat"
@@ -28,7 +28,7 @@
 #define SUCC_MSG_03 "\nData-set is generated successfully."
 
 void execute_brute_force();
-double closest(point* sx, int nx, point* sy, int ny, point *a, point *b);
+double brute_force(point* sx, int nx, point* sy, int ny, point *a, point *b);
 int generate_orginal_data(const char* file);
 void print_results(const char* file);
 
@@ -101,8 +101,7 @@ void execute_brute_force() {
 	qsort(s_x, length, sizeof(point), cmp_x);
 	qsort(s_y, length, sizeof(point), cmp_y);
 
-	//TODO: Write the result into file and named Result.data
-	double min_pair = closest(s_x, length, s_y, length, &a, &b);
+	double min_pair = brute_force(s_x, length, s_y, length, &a, &b);
 	min_pair = sqrt(min_pair);
 
 	free(s_x);
